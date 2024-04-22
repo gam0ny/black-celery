@@ -1,5 +1,8 @@
 .post {
 	text-align: left;
+	background-color: #f1f1f1;
+	padding: 10px;
+	border-radius: 10px;
 }
 
 .post h3:first-letter, p:first-letter {

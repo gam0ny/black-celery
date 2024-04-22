@@ -2,6 +2,12 @@
 	padding: 0 110px;
 }
 
+.posts ul {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 20px;
+}
+
 .posts li {
 	list-style-type: none;
 }
