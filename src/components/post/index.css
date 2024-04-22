@@ -1,3 +1,7 @@
 .post {
 	text-align: left;
 }
+
+.post h3:first-letter, p:first-letter {
+	text-transform: uppercase
+}

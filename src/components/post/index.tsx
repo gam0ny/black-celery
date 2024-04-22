@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostModel } from '../models/post'
+import { PostModel } from '../../models/post'
 import './index.css';
 
 export type PostPropTypes = PostModel & {

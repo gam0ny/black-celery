@@ -1,31 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Post from '../post'
-import { PostModel } from '../models/post'
 import './index.css'
-
-export type PostsStateTypes = {
-	posts: PostModel[],
-}
-
-const initialState = {
-	posts: [
-		{
-			title: 'This is post header',
-			body: 'This is post body'
-		}]
-}
+import { useLoadPosts } from '../../hooks/useLoadPosts'
 
 const Posts = () => {
 
-	const [state, setState] = useState<PostsStateTypes | null>(initialState)
+	const [
+		posts,
+		loading
+	] = useLoadPosts()
 
 		return (
 			<article className={'posts'}>
 				<h2>Your Posts</h2>
-				{ !state?.posts?.length && 'There are no posts available yet' }
-				{ !!state?.posts?.length &&
+				{ loading && <div>Loading...</div>}
+				{ !posts?.length && 'There are no posts available yet' }
+				{ posts.length &&
 					<ul>
-						{ state.posts.map(({ title, body}, index) => (
+						{ posts.map(({ title, body}, index) => (
 							<li key={`${title}-${index}`}>
 								<Post
 									title={title}
