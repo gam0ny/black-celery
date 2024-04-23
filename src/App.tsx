@@ -1,16 +1,24 @@
-import React, {FormEvent} from 'react'
+import React, { FormEvent } from 'react'
 import './App.css';
 import Header from './components/header'
 import Posts from './components/posts'
 import NewPost from './components/new-post'
 import { PostModel } from './models/post'
 import { useCreatePost } from './hooks/useCreatePost'
+import {useLoadPosts} from './hooks/useLoadPosts'
 
 const userId = 1
 
 function App() {
 
   const [createNewPost] = useCreatePost(userId)
+
+  const [
+    posts,
+    loading,
+    ,
+    setPosts
+  ] = useLoadPosts()
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -25,7 +33,13 @@ function App() {
 
     const newPost = await createNewPost(post)
 
-    alert(`New Post is created! ${newPost}`)
+    //setLoading(true)
+    setPosts((prevPosts) => {
+      return [
+        ...prevPosts,
+        newPost,
+      ]
+    })
   }
 
 
@@ -33,7 +47,7 @@ function App() {
     <div className="App">
       <Header />
       <NewPost onSubmit={handleFormSubmit} />
-      <Posts />
+      <Posts posts={posts} loading={loading} />
     </div>
   );
 }

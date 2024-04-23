@@ -1,21 +1,20 @@
 import React from 'react'
 import Post from '../post'
 import './index.css'
-import { useLoadPosts } from '../../hooks/useLoadPosts'
+import { PostModel } from '../../models/post'
 
-const Posts = () => {
+export type PostsPropTypes = {
+	posts: PostModel[],
+	loading: Boolean,
+}
 
-	const [
-		posts,
-		loading
-	] = useLoadPosts()
-
+const Posts = ({ posts, loading }: PostsPropTypes) => {
 		return (
 			<article className={'posts'}>
 				<h2>Your Posts</h2>
 				{ loading && <div>Loading...</div>}
 				{ !posts?.length && 'There are no posts available yet' }
-				{ posts.length &&
+				{ !!posts.length &&
 					<ul>
 						{ posts.map(({ title, body}, index) => (
 							<li key={`${title}-${index}`}>

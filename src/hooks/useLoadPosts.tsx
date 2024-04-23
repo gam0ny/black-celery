@@ -1,48 +1,39 @@
-import {useEffect, useState} from 'react'
-import {PostModel} from '../models/post'
+import {Dispatch, SetStateAction, useEffect, useState} from 'react'
+import { PostModel } from '../models/post'
+import { PostsService } from '../services/posts-service'
 
-export type LoadPostsStateTypes = {
-	posts: PostModel[],
-	loading: Boolean,
-}
-
-
-const initialState = {
-	posts: [],
-	loading: false,
-}
-
-export const useLoadPosts = (): [PostModel[], Boolean] => {
-	const [state, setState] = useState<LoadPostsStateTypes>(initialState)
+export const useLoadPosts = (userId: number = 1):
+	[
+		PostModel[],
+		Boolean,
+		Dispatch<SetStateAction<Boolean>>,
+		Dispatch<SetStateAction<PostModel[]>>,
+	] => {
+	const [posts, setPosts] = useState<PostModel[]>([])
+	const [loading, setLoading] = useState<Boolean>(false)
 
 	useEffect(() => {
 
-		setState(prevState => ({
-			...prevState,
-			loading: true,
-		}))
-
-
-		fetch('https://jsonplaceholder.typicode.com/posts?userId=1')
-			.then(response => response.json())
-			.then(json => {
-				const posts = json.map((item: any) => ({
-					title: item.title,
-					body: item.body,
-				}))
-
-				setState(prevState => ({
-					...prevState,
-					posts,
-					loading: false,
-				}))
-
-			})
+		setLoading(() => true)
 
 	}, [])
 
+	useEffect(() => {
+
+		if(loading) {
+			 new PostsService().loadPosts(userId)
+				 .then((posts) => {
+					 setPosts(posts)
+					 setLoading(false)
+				 })
+		}
+
+	}, [loading])
+
 	return [
-		state.posts,
-		state.loading,
+		posts,
+		loading,
+		setLoading,
+		setPosts,
 	]
 }
