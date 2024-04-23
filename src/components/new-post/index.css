@@ -5,5 +5,24 @@
 .new-post form {
 	display: flex;
 	flex-direction: column;
-	gap: 10px
+	gap: 10px;
+	padding: 0 40px;
+}
+
+.new-post label {
+	font-size: 10px;
+}
+
+.new-post input, textarea {
+	display: block;
+	margin: 3px 0;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.new-post button {
+	padding: 10px;
+	float: right;
+	margin: 0;
 }

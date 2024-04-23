@@ -15,7 +15,7 @@ const NewPost = ({ onSubmit }: NewPostPropTypes) => {
 			<h2>Write New Post</h2>
 			<form method={'POST'} onSubmit={onSubmit}>
 				<div>
-					<label htmlFor="post-title">Title:</label>
+					<label htmlFor="post-title">Title</label>
 					<input
 						type="text"
 						id="post-title"
@@ -24,11 +24,12 @@ const NewPost = ({ onSubmit }: NewPostPropTypes) => {
 					/>
 				</div>
 				<div>
-					<label htmlFor="post-body">Text:</label>
+					<label htmlFor="post-body">Text</label>
 					<textarea
 						id="post-body"
 						name="post-body"
 						ref={bodyRef}
+						rows={5}
 					/>
 				</div>
 				<div>
